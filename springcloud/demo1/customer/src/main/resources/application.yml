@@ -1,0 +1,36 @@
+server:
+  port: 8712
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8710/eureka
+spring:
+  application:
+    name: customer-server
+  cloud:
+    gateway:
+      enabled: true
+      routes:
+#      - id: after_route
+#        uri: https://example.org
+#        predicates:
+#        - Cookie=mycookie,mycookievalue
+        - id: method_route
+          uri: http://localhost:8712/test/feign/get/info/tom
+          predicates:
+          - Method=DELETE
+  main:
+    web-application-type: reactive
+    allow-bean-definition-overriding: true
+#spring cloud 2020后版本在openFiegn 中使用fallback
+feign:
+  circuitbreaker:
+    enabled: true
+#spring cloud 2020前版本开始feign中的hystrix
+#feign:
+#  hystrix:
+#    enabled: true
+
+#  cloud:
+#    inetutils:
+#      timeout-seconds: 10

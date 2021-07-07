@@ -1,0 +1,14 @@
+server:
+  port: 8710
+spring:
+  application:
+    name: eureka-service
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+    #访问不需要加eureka，但配置必须加
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka

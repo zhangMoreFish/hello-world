@@ -1,0 +1,9 @@
+server:
+  port: 8711
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8710/eureka
+spring:
+  application:
+    name: provider-server
