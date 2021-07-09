@@ -1,0 +1,47 @@
+server:
+  port: 8712
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+spring:
+  application:
+    name: customer-server
+  cloud:
+    gateway:
+      enabled: true
+      routes:
+#      - id: after_route
+#        uri: https://example.org
+        # 匹配cookie name为mycookie，value为mycookievalue
+#        predicates:
+#        - Cookie=mycookie,mycookievalue
+        - id: hello_route
+        #路由到指定ip 过滤接口RouteToRequestUrlFilter
+          uri: http://localhost:8711
+        #路由到服务名称
+#          uri: lb://provider-server
+          #匹配/test/hello开始的请求到uri 比如：http://localhost:8712/test/hello 路由到 http://localhost:8711/test/hello
+          predicates:
+            - Path=/test/hello/**
+#          - Method=GET
+#      filter:
+#        - StripPrefix=1
+#解决添加gateway后的spring-boot-web冲突
+  main:
+    web-application-type: reactive
+    allow-bean-definition-overriding: true
+#spring cloud 2020后版本在openFiegn 中使用fallback
+feign:
+  circuitbreaker:
+    enabled: true
+#spring cloud 2020前版本开始feign中的hystrix
+#feign:
+#  hystrix:
+#    enabled: true
+
+#  cloud:
+#    inetutils:
+#      timeout-seconds: 10
