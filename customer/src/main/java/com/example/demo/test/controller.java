@@ -3,6 +3,8 @@ package com.example.demo.test;
 import com.example.demo.feign.ProviderServerFeign;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -26,6 +28,8 @@ import java.util.List;
 @RequestMapping("/test")
 public class controller {
 
+    Logger logger = LoggerFactory.getLogger(controller.class);
+
     @Autowired
     private DiscoveryClient discoveryClient;
     @Autowired
@@ -45,6 +49,9 @@ public class controller {
      */
     @RequestMapping("/get/info/{name}")
     public String getInfo(@PathVariable("name") String name){
+        if(logger.isInfoEnabled()) logger.info("logger info {}", name);
+        if(logger.isDebugEnabled()) logger.debug("logger debugger {}", name);
+        if(logger.isErrorEnabled()) logger.error("logger error {}", name);
         List<String> list = discoveryClient.getServices();
         String serviceId = list.stream().filter(s -> !s.equalsIgnoreCase(currentServerId)).findFirst().get();
 //        String serviceId = list.get(0);

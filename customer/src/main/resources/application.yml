@@ -37,6 +37,13 @@ spring:
 feign:
   circuitbreaker:
     enabled: true
+logging:
+  file:
+    name: none
+    path: none
+  level:
+    #要加root!!!  debug 等级最低
+    root: info
 #spring cloud 2020前版本开始feign中的hystrix
 #feign:
 #  hystrix:

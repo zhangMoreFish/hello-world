@@ -27,3 +27,4 @@ fallbackFactory比fallback多了失败原因，fallback处理类需要交给spri
 9.spring cloud 2020后的网关由zuul替换为gateway,引入gateway后默认启用，关闭：cloud.gateway.enable=false
 10.gateway routes属性:id，自定义，不能重复；uri：路由到的地址，使用服务名时加前缀lb://；predicates：Path(匹配路径),Method(匹配请求方法类型),Cookie(匹配cookie)
 11.组件依赖中容易有重复的引用导致冲突报错
+12.spring-cloud-starter-netflix-eureka-server不用加@EnableEurekaClient注解也可以注册，spring-cloud-starter-netflix-eureka-server包含client的内容，并且包含spring-boot-starter-web,client不包含，使用client时需要额外引入
